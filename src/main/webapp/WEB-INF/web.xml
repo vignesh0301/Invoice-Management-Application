@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+	<display-name>Invoice</display-name>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>com.user.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SignUp</servlet-name>
+		<servlet-class>com.user.SignUpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SignUp</servlet-name>
+		<url-pattern>/signup</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>com.user.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>NewCust</servlet-name>
+		<servlet-class>com.customer.NewCustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewCust</servlet-name>
+		<url-pattern>/addcustomer</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ItemList</servlet-name>
+		<servlet-class>com.item.ItemListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItemList</servlet-name>
+		<url-pattern>/items</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteItem</servlet-name>
+		<servlet-class>com.item.DeleteItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteItem</servlet-name>
+		<url-pattern>/deleteitem</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddItem</servlet-name>
+		<servlet-class>com.item.AddItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddItem</servlet-name>
+		<url-pattern>/additem</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Home</servlet-name>
+		<servlet-class>com.invoice.HomeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Home</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>NewInvoice</servlet-name>
+		<servlet-class>com.invoice.NewInvoiceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewInvoice</servlet-name>
+		<url-pattern>/newinvoice</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Pay</servlet-name>
+		<servlet-class>com.invoice.PayInvoiceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Pay</servlet-name>
+		<url-pattern>/pay</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ViewInvoice</servlet-name>
+		<servlet-class>com.invoice.ViewInvoiceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewInvoice</servlet-name>
+		<url-pattern>/invoice</url-pattern>
+	</servlet-mapping>
+</web-app>
