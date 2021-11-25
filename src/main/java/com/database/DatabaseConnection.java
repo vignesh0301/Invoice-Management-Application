@@ -10,6 +10,7 @@ public class DatabaseConnection {
 		
 	}
 	
+	//Change username and password here, tables will be created automatically
 	private static final String jdbcURL = "jdbc:mysql://localhost:3306/invoice?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true";
 	private static final String jdbcUsername = "vignesh";
 	private static final String jdbcPassword = "password";

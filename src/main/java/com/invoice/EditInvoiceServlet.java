@@ -19,7 +19,6 @@ import com.item.ItemDAO;
 import com.jwt.Jwt;
 import com.utilities.Utilities;
 
-@WebServlet("/editinvoice")
 public class EditInvoiceServlet extends HttpServlet {
 
 	public EditInvoiceServlet() {
