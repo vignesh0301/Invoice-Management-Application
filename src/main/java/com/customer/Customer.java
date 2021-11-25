@@ -1,9 +1,10 @@
 package com.customer;
 
+//Bean class for customer
 public class Customer {
 	
 	private int id;
-	private String name,email,address,remarks,phone;
+	private String name,email,address,phone;
 	private int companyId;
 	
 	
@@ -25,24 +26,26 @@ public class Customer {
 	public String getAddress() {
 		return address;
 	}
-	public String getRemarks() {
-		return remarks;
-	}
 	public int getCompanyId() {
 		return companyId;
 	}
 	
 	
-	public Customer(String name, String email, String address, String remarks, int companyId,String phone) {
+	public Customer(String name, String email, String address, int companyId,String phone) {
 		this.name = name;
 		this.email = email;
 		this.address = address;
-		this.remarks = remarks;
 		this.phone=phone;
 		this.companyId = companyId;
 	}
-	
-	
+	public Customer(int id, String name, String email, String address,  int companyId,String phone) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.address = address;
+		this.phone = phone;
+		this.companyId = companyId;
+	}
 	public Customer(int id,String name, int companyId) {
 		this.id=id;
 		this.name = name;

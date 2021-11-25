@@ -18,10 +18,14 @@
 	<header>
 		<ul>
 			<li><a class="active" href="<%=request.getContextPath()%>">Invoice App</a></li>
-			<li><a href="<%=request.getContextPath()%>/home">Home</a></li>
-			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/home">Invoices</a></li>
 			<li><a href="<%=request.getContextPath()%>/newinvoice">New Invoice</a></li>
+		    <li><a href="<%=request.getContextPath()%>/viewcustomer">View Customers</a></li>
+			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/items">Items</a></li>
 			<li><a href="<%=request.getContextPath()%>/additem.jsp">New Item</a></li>
+			<li><a href="<%=request.getContextPath()%>/settings.jsp">Settings</a></li>
+			
 			<li><a class="logout" href="<%=request.getContextPath()%>/logout">Logout</a></li>
 		</ul>
 	</header>
@@ -35,18 +39,23 @@
 					<thead>
 						<tr class="my-head bg-primary text-light">
 							<th style="text-align: center">Invoice No</th>
+							<th style="text-align: center">Customer Name</th>
 							<th style="text-align: center">Date</th>
 							<th style="text-align: center">Due Date</th>
+					        <th style="text-align: center">Total Amount</th>
 							<th style="text-align: center">Status</th>
-					    	<th style="text-align: center">View</th> 
+					    	<th style="text-align: center"></th> 
 						</tr>
 					</thead>
-
 					<c:forEach var="item" items="${invoices}">
 						<tbody>
+						
 							<td style="text-align: center; align-items: center; vertical-align: middle;"><c:out value="${item.invoiceNo}" /></td>
+							<td style="text-align: center; align-items: center; vertical-align: middle;"><c:out value="${item.customerName}" /></td>
 							<td style="text-align: center; align-items: center; vertical-align: middle;"><c:out value="${item.date}" /></td>
 							<td style="text-align: center; align-items: center; vertical-align: middle;"><c:out value="${item.dueDate}" /></td>
+							<td style="text-align: center; align-items: center; vertical-align: middle;"><c:out value="₹${item.totalAmount}" /></td>
+							
 						    <c:if test="${ item.paidDate== null && item.dueDate>=today}" var="res"><td style="text-align: center; align-items: center; vertical-align: middle;"><c:out value="Pending" /></td></c:if>
 					        <c:if test="${ item.paidDate== null && item.dueDate<today}" var="res"><td style="text-align: center; align-items: center; vertical-align: middle;"><c:out value="Overdue" /></td></c:if>
 						    <c:if test="${ item.paidDate!= null}" var="res"><td style="text-align: center; align-items: center; vertical-align: middle;"><c:out value="Paid" /></td></c:if>

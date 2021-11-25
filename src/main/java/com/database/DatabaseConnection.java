@@ -10,14 +10,12 @@ public class DatabaseConnection {
 		
 	}
 	
-	private String jdbcURL = "jdbc:mysql://localhost:3306/invoice?useSSL=false&createDatabaseIfNotExist=true";
-	private String jdbcUsername = "vignesh";
-	private String jdbcPassword = "password";
+	private static final String jdbcURL = "jdbc:mysql://localhost:3306/invoice?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true";
+	private static final String jdbcUsername = "vignesh";
+	private static final String jdbcPassword = "password";
 
 	public Connection getConnection() throws SQLException, ClassNotFoundException {
-		Connection connection = null;
 		Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-		return connection;
+		return DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 	}
 }

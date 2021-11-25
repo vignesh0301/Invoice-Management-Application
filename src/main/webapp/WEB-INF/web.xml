@@ -99,4 +99,58 @@
 		<servlet-name>ViewInvoice</servlet-name>
 		<url-pattern>/invoice</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteCustomer</servlet-name>
+		<servlet-class>com.customer.DeleteCustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteCustomer</servlet-name>
+		<url-pattern>/deletecustomer</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EditCustomer</servlet-name>
+		<servlet-class>com.customer.EditCustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditCustomer</servlet-name>
+		<url-pattern>/editcustomer</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ViewCustomer</servlet-name>
+		<servlet-class>com.customer.ViewCustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewCustomer</servlet-name>
+		<url-pattern>/viewcustomer</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteUser</servlet-name>
+		<servlet-class>com.user.DeleteUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteUser</servlet-name>
+		<url-pattern>/deleteuser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EditItem</servlet-name>
+		<servlet-class>com.item.EditItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditItem</servlet-name>
+		<url-pattern>/edititem</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteInvoice</servlet-name>
+		<servlet-class>com.invoice.DeleteInvoiceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteInvoice</servlet-name>
+		<url-pattern>/deleteinvoice</url-pattern>
+	</servlet-mapping>
 </web-app>

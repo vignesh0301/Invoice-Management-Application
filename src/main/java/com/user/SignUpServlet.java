@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.utilities.Utilities;
+
 public class SignUpServlet extends HttpServlet {
 	public SignUpServlet() {
 		super();
@@ -35,31 +37,20 @@ public class SignUpServlet extends HttpServlet {
 			String company = request.getParameter("company");
 
 			if (userDAO.isUsernameInUse(username)) {
-				PrintWriter out = response.getWriter();
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Username is already in use');");
-				out.println("location='signup.jsp';");
-				out.println("</script>");
+				Utilities.ShowAlert("Username is in use","signup.jsp", response);
 				return;
 
 			}
 			User newUser = new User(username, email,company, password);
 
 			userDAO.insertUser(newUser);
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('User created successfully');");
-			out.println("location='login.jsp';");
-			out.println("</script>");
+			Utilities.ShowAlert("User created successfully","login.jsp", response);
+
 		}
 
 		catch (Exception e) {
 			e.printStackTrace();
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Something went wrong');");
-			out.println("location='login.jsp';");
-			out.println("</script>");
+			Utilities.ShowAlert("Something went wrong","login.jsp", response);
 
 		}
 	}

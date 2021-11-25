@@ -3,6 +3,7 @@ package com.user;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+//Bean class for user
 public class User {
 	private int id; 
 	private String username,password,email,company;

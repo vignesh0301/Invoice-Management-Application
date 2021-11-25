@@ -12,10 +12,14 @@
 <header>
 		<ul>
 			<li><a class="active" href="<%=request.getContextPath()%>">Invoice App</a></li>
-			<li><a href="<%=request.getContextPath()%>/home">Home</a></li>
-			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/home">Invoices</a></li>
 			<li><a href="<%=request.getContextPath()%>/newinvoice">New Invoice</a></li>
+		    <li><a href="<%=request.getContextPath()%>/viewcustomer">View Customers</a></li>
+			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/items">Items</a></li>
 			<li><a href="<%=request.getContextPath()%>/additem.jsp">New Item</a></li>
+			<li><a href="<%=request.getContextPath()%>/settings.jsp">Settings</a></li>
+			
 			<li><a class="logout" href="<%=request.getContextPath()%>/logout">Logout</a></li>
 		</ul>
 	</header>
@@ -38,11 +42,7 @@
 			</div><br>
 
 			<div>
-				<label for="phone">Phone Number</label> <input type="text" name="phone" class="form-control">
-			</div><br>
-
-			<div>
-				<label for="remarks">Remarks</label> <input type="text" name="remarks" class="form-control">
+				<label for="phone">Phone Number</label> <input type="number" name="phone" class="form-control">
 			</div><br>
 
 			<button type="button" onclick="checkForm()" class="button">Create</button><br><br><br>
@@ -57,8 +57,14 @@ function checkForm(){
 		alert("Name cannot be empty"); 
 	else if(document.getElementById("email").value.length<=0) 
 		alert("Please enter Email Address"); 
-	else
-		document.getElementById("cust").submit();
+	
+	else{
+		var re = /\S+@\S+\.\S+/;
+		if(re.test(document.getElementById("email").value))
+		    document.getElementById("cust").submit();
+		else
+			alert("Please enter a valid email address");
+    }
 	
 }
 </script>

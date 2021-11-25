@@ -9,23 +9,21 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-	<header>
+<header>
 		<ul>
 			<li><a class="active" href="<%=request.getContextPath()%>">Invoice App</a></li>
-			<li><a href="<%=request.getContextPath()%>/home">Home</a></li>
+			<li><a href="<%=request.getContextPath()%>/home">Invoices</a></li>
+			<li><a href="<%=request.getContextPath()%>/newinvoice">New Invoice</a></li>
+		    <li><a href="<%=request.getContextPath()%>/viewcustomer">View Customers</a></li>
 			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
-			<li><a href="<%=request.getContextPath()%>/newinvoice">New 	Invoice</a></li>
+			<li><a href="<%=request.getContextPath()%>/items">Items</a></li>
 			<li><a href="<%=request.getContextPath()%>/additem.jsp">New Item</a></li>
+			<li><a href="<%=request.getContextPath()%>/settings.jsp">Settings</a></li>
+			
 			<li><a class="logout" href="<%=request.getContextPath()%>/logout">Logout</a></li>
 		</ul>
 	</header>
-
-	<div class="container" style="margin-top: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px; margin: 10%; margin-top: 30px; margin-bottom: 0px;">
-		<form action="items" method="get">
-			<button type="submit" class="button" style="margin-bottom: 15px;">View Items</button>
-		</form>
-	</div>
-
+	
 
 	<div class="container card" style=" padding-top: 50px; padding-left: 50px; padding-right: 50px;">
 		
@@ -37,9 +35,9 @@
 			</div><br>
 
 			<div>
-				<label for="type">Type</label> <select name="type">
-					<option value="goods">Goods</option>
-					<option value="services">Services</option>
+				<label for="type">Type</label> <select style="background-color:white" name="type">
+					<option value="0">Goods</option>
+					<option value="1">Services</option>
 				</select>
 			</div><br>
 
@@ -52,7 +50,7 @@
 			</div><br>
 
 			<div>
-				<label for="description">Description</label> <input type="text" name="description" class="form-control">
+				<label for="description">Description</label> <textarea  name="description" class="form-control"></textarea>
 			</div><br>
 
 

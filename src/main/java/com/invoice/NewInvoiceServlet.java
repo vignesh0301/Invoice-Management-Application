@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import com.utilities.Utilities;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,24 +44,24 @@ public class NewInvoiceServlet extends HttpServlet {
         super();
     }
 
+    //Creating invoice
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			int companyId = jwt.getCustomerId((String) request.getSession().getAttribute("token")) ;
-			if(companyId <=0 ) response.sendRedirect(request.getContextPath()+"/login");
 			
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date date1 = df.parse(request.getParameter("date"));
-			java.sql.Date date = new java.sql.Date(date1.getTime()); 
+			int companyId = Utilities.CheckAuth(request, response);
 			
-			java.util.Date duedate1 = df.parse(request.getParameter("dueDate"));
-			java.sql.Date dueDate = new java.sql.Date(duedate1.getTime()); 
+			java.sql.Date date = Utilities.DateConverter(request.getParameter("date"));
+			java.sql.Date dueDate = Utilities.DateConverter(request.getParameter("dueDate"));
 			
 			int customerId = Integer.parseInt( request.getParameter("customerId")); 
 			int invoiceNo = invoiceDAO.getInvoiceNumber(companyId);
 			
 			double discount = Double.parseDouble(request.getParameter("discount"));
 			
-			invoiceDAO.createInvoice(new Invoice(customerId,date,dueDate,null,companyId,invoiceNo,discount));
+			double Amount = Double.parseDouble(request.getParameter("amt"));
+			
+			double discountAmount = (discount*Amount)/100;
+			
 			
 			
 			List<InvoiceItems> invoiceitems = new ArrayList<>(); 
@@ -73,40 +74,39 @@ public class NewInvoiceServlet extends HttpServlet {
 				double quantity = Double.parseDouble(request.getParameter("quantity"+id)); 
 				double price = Double.parseDouble(request.getParameter("price"+id));
 				invoiceitems.add(new InvoiceItems(itemId,quantity,price));
-				PrintWriter out = response.getWriter();
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Invoice has been created');");
-				out.println("location='newinvoice';");
-				out.println("</script>");
 			}
 			
+			invoiceDAO.CreateInvoice(new Invoice(customerId,date,dueDate,null,companyId,invoiceNo,discount,discountAmount,Amount,Amount-discountAmount));
 			invoiceDAO.insertInvoiceItems(invoiceitems,companyId,invoiceNo);
 			
+			Utilities.ShowAlert("Invoice has been created","home", response);
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Something went wrong');");
-			out.println("location='newinvoice';");
-			out.println("</script>");
+
+			Utilities.ShowAlert("Something went wrong","login.jsp", response);
 		}
 	}
 	
+	//Invoice creation values
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
 			
-			int companyId = jwt.getCustomerId((String) request.getSession().getAttribute("token")) ;
-			if(companyId <=0 ) response.sendRedirect(request.getContextPath()+"/login");
+			int companyId = Utilities.CheckAuth(request, response);
 			
+			//setting customers
 			List<Customer> customers = customerDAO.getCustomers(companyId);
 			request.setAttribute("customers",customers);
 			
+			//setting items
 			List<Item> items = itemDAO.getItems(companyId); 
 			request.setAttribute("items", items);
 			
+			//setting invoiceNo
 			request.setAttribute("invoiceNo", invoiceDAO.getInvoiceNumber(companyId));
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("newinvoice.jsp");
 			dispatcher.forward(request, response);
 			
@@ -114,11 +114,9 @@ public class NewInvoiceServlet extends HttpServlet {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Something went wrong');");
-			out.println("location='login.jsp';");
-			out.println("</script>");			
+
+			Utilities.ShowAlert("Something went wrong","login.jsp", response);
+			
 		}
 		
 	}

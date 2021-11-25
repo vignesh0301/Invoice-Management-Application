@@ -1,10 +1,13 @@
 package com.item;
 
+
+//Bean class for item
 public class Item {
 	
 	
 	private int id; 
-	private String name,type;
+	private String name; 
+	private int type;
 	private double costPrice,sellingPrice; 
 	private String description;
 	private int companyId;
@@ -17,7 +20,7 @@ public class Item {
 	public String getName() {
 		return name;
 	}
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 	public double getCostPrice() {
@@ -32,7 +35,7 @@ public class Item {
 	public int  getCompanyId() {
 		return companyId;
 	}
-	public Item(String name,  String type, double costPrice, double sellingPrice, String description,int companyId) {
+	public Item(String name,  int type, double costPrice, double sellingPrice, String description,int companyId) {
 		this.name = name;
 		this.type = type;
 		this.costPrice = costPrice;
@@ -40,7 +43,7 @@ public class Item {
 		this.description = description;
 		this.companyId=companyId;
 	}
-	public Item(int id, String name, String type,double costPrice, double sellingPrice, String description,
+	public Item(int id, String name, int type,double costPrice, double sellingPrice, String description,
 			int companyId) {
 		this.id = id;
 		this.name = name;

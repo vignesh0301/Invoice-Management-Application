@@ -16,10 +16,13 @@
 <header>
 		<ul>
 			<li><a class="active" href="<%=request.getContextPath()%>">Invoice App</a></li>
-			<li><a href="<%=request.getContextPath()%>/home">Home</a></li>
-			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/home">Invoices</a></li>
 			<li><a href="<%=request.getContextPath()%>/newinvoice">New Invoice</a></li>
+		    <li><a href="<%=request.getContextPath()%>/viewcustomer">View Customers</a></li>
+			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/items">Items</a></li>
 			<li><a href="<%=request.getContextPath()%>/additem.jsp">New Item</a></li>
+			<li><a href="<%=request.getContextPath()%>/settings.jsp">Settings</a></li>
 			<li><a class="logout" href="<%=request.getContextPath()%>/logout">Logout</a></li>
 		</ul>
 	</header>
@@ -43,25 +46,29 @@
        <c:forEach var="item" items="${items}">
        <tbody>
          <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="${item.name}" /></td>
-            <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="${item.price}" /></td>
+            <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="₹ ${item.price}" /></td>
             <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="${item.quantity}" /></td>
-            <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="${item.price*item.quantity}" /></td>
+            <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="₹ ${item.price*item.quantity}" /></td>
   
        </tbody>
         </c:forEach>
       </table>
 
       <div class="float-right" style="margin-right:10%; margin-bottom:20px;" >
-        <h5 class="mt-4">Amount: ₹ <c:out value="${totalAmount}"></c:out></h5>
+        <h5 class="mt-4">Amount: ₹ <c:out value="${Amount}"></c:out></h5>
           <h5 class="mt-4">Discount: <c:out value="${discount}"></c:out>%</h5>
-         <h5 class="mt-4">Total Amount: ₹ <c:out value="${totalAmount*((100-discount)/100)}"></c:out></h5>
+         <h5 class="mt-4">Total Amount: ₹ <c:out value="${totalAmount}"></c:out></h5>
     </div>
     </div>
 
     <div class="container mt-4">
        <c:if test="${paid==false}" var="res"><form id="pay" method="post" action="pay"><label class="mt-2" for="paidDate"><h5>Date of Payment</h5></label><input style="width:170px" id="paidDate" type="date" class="col-xs-2 mt-2 form-control" name="paidDate"><input type="hidden" name="invoiceNo" value="${invoiceNo }"><button type="button" onclick="makePay()" class="mt-4 btn btn-success">Make Payment</button></form></c:if>
        <c:if test="${paid==true }" var="res"><button class="btn btn-success">Paid at  &nbsp; <c:out value="${paidDate }"></c:out></button></c:if>
+       <div class=row"><form class="float-left" id="delete" method="post" action="deleteinvoice"><input type="hidden" name="invoiceNo" value="${invoiceNo }"><button type="submit" class="mt-4 btn btn-danger">Delete Invoice</button></form>
+        <form class=" ml-2 float-left" id="edit" method="get" action="editinvoice"><input type="hidden" name="invoiceNo" value="${invoiceNo }"><button type="submit" class="mt-4 mb-4 btn btn-info">Edit Invoice</button></form>
+       </div>
     </div>
+    
 	</div>
 	
 </body>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jwt.Jwt;
+import com.utilities.Utilities;
 
 public class ItemListServlet extends HttpServlet {
 
@@ -32,23 +33,23 @@ public class ItemListServlet extends HttpServlet {
 		}
 	}
 
+	//Getting list of items
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int companyId = jwt.getCustomerId((String) request.getSession().getAttribute("token")) ;
-			if(companyId <=0 ) response.sendRedirect(request.getContextPath()+"/login");
+			int companyId = Utilities.CheckAuth(request, response);
 			
+			//Getting list of items
 			List<Item> items = itemDAO.getItems(companyId);
 			request.setAttribute("items",items);
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("items.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Something went wrong');");
-			out.println("location='login.jsp';");
-			out.println("</script>");
+
+			Utilities.ShowAlert("Something went wrong","login.jsp", response);
+
 		}
 
 	}

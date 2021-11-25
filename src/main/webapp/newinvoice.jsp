@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
-<%@page import="com.invoice.InvoiceItems"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -17,13 +16,17 @@
 </head>
 <body>
 
-	<header>
+<header>
 		<ul>
 			<li><a class="active" href="<%=request.getContextPath()%>">Invoice App</a></li>
-			<li><a href="<%=request.getContextPath()%>/home">Home</a></li>
-			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/home">Invoices</a></li>
 			<li><a href="<%=request.getContextPath()%>/newinvoice">New Invoice</a></li>
+		    <li><a href="<%=request.getContextPath()%>/viewcustomer">View Customers</a></li>
+			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/items">Items</a></li>
 			<li><a href="<%=request.getContextPath()%>/additem.jsp">New Item</a></li>
+			<li><a href="<%=request.getContextPath()%>/settings.jsp">Settings</a></li>
+			
 			<li><a class="logout" href="<%=request.getContextPath()%>/logout">Logout</a></li>
 		</ul>
 	</header>
@@ -34,7 +37,7 @@
 		<div class="container">
 
 			<label for="customer">Select Customer</label> 
-			<select	name="customerId" class="form-control" id="selectcust">
+			<select	name="customerId" class="form-control w-25" id="selectcust">
 			 <option value="Select Customer">--- Please select ---</option>
 				<c:forEach var="cust" items="${customers}">
 					<option value="${cust.id}"><c:out value="${ cust.name}" /></option>
@@ -42,15 +45,15 @@
 			</select><br> 
 			
 			<label for="customer">Invoice Number</label>
-			 <input class="form-control" type="text" value="${invoiceNo }" disabled><br> 
+			 <input class="form-control w-25" type="text" value="${invoiceNo }" disabled><br> 
 			
 			
 			<label for="date">Date of Invoice</label>
-			 <input class="form-control" id="date" name="date" type="date"> <br>
+			 <input class="form-control w-25" id="date" name="date" type="date"> <br>
 			 
 			 
 			  <label for="dueDate">DueDate</label>
-			   <input class="form-control" id="dueDate" name="dueDate" type="date"> <br>
+			   <input class="form-control w-25" id="dueDate" name="dueDate" type="date"> <br>
 			   
 			   
 			<div class="table-responsive r-scroll">
@@ -61,7 +64,7 @@
 							<th style="text-align: center">Quantity</th>
 							<th style="text-align: center">Price</th>
 							<th style="text-align: center">Total</th>
-							<th style="text-align: center">Remove</th>
+							<th style="text-align: center"></th>
 						</tr>
 					</thead>
 
@@ -70,16 +73,18 @@
 				</table>
 
 			</div><br> 
-
+			<div class="float-right">
 			<label for="total">Sub Total</label>
 			<h5 class="text-muted " id="total">0.00</h5><br>
+			<input type="hidden" value="0" id="amt" name="amt">
 			
 			<label for="discount">Discount (in %)</label>
-			<input id="discount" name="discount" class="form-control" type="number"  min="0" value="0" onchange="addDiscount()"><br>
+			<input id="discount" name="discount" class="form-control" style="width:100px" type="number"  min="0" value="0" onchange="addDiscount()"><br>
 			
 			<label for="total">Total Amount</label>
 			<h5 class="text-muted " id="totalamt">0.00</h5><br>
 			<button class=" btn btn-primary" type="button" onclick="checkForm()">Submit</button>
+			</div>
 		</div>
 
 	</form>
@@ -90,15 +95,15 @@
 
 
 		<label for="itemname">Item Name</label> 
-		  <select id="itemname" name="itemname" onchange="changePrice()" class="form-control">
+		  <select id="itemname" name="itemname" onchange="changePrice()" class="form-control w-25">
 			<c:forEach var="item" items="${items}">
 				<option value="${item.name}"  data-price="${item.sellingPrice }"><c:out value="${ item.name}" /></option>
 			</c:forEach>
 		</select> <br> 
 		
-		<label for="price">Price</label> <input name="price" id="price" type="number" class="form-control" ><br>
+		<label for="price">Price</label> <input name="price" id="price" type="number" class="form-control w-25" ><br>
 			 
-		 <label for="quantity">Quantity</label>	<input id="quantity" name="quantity" type="number" min="1" class="form-control" value="1"><br>
+		 <label for="quantity">Quantity</label>	<input id="quantity" name="quantity" type="number" min="1" class="form-control w-25" value="1"><br>
 
 		<button class="btn btn-primary" type="button" onclick="add_item()">Add</button><br><br>
 		
@@ -145,7 +150,8 @@ function add_item(){
 	
 	Invoice.addTotal(parseFloat((quantity*price).toFixed(2)));
 	document.getElementById("total").innerHTML=(Invoice.getTotal()).toFixed(2);
-	
+	document.getElementById("amt").value=(Invoice.getTotal()).toFixed(2);
+
 	var table = document.getElementById("table");
 
 	  var length = Invoice.getCount()+1;
@@ -162,6 +168,8 @@ function remove_item(x,a){
 	
 	Invoice.removeTotal(a);
 	document.getElementById("total").innerHTML= (Invoice.getTotal()).toFixed(2);
+	document.getElementById("amt").value=(Invoice.getTotal()).toFixed(2);
+
 	
 	document.getElementById("totalamt").innerHTML = (Invoice.getTotal()*((100-document.getElementById("discount").value)/100)).toFixed(2);
 
@@ -171,7 +179,7 @@ function remove_item(x,a){
 function addDiscount(){
 	if(document.getElementById("discount").value>100) document.getElementById("discount").value=100;
 	document.getElementById("totalamt").innerHTML = (Invoice.getTotal()*(100-document.getElementById("discount").value)/100).toFixed(2);
-
+	
 	
 }
 function checkForm(){

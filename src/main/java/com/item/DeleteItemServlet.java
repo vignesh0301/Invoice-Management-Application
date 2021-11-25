@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.invoice.InvoiceDAO;
 import com.jwt.Jwt;
+import com.utilities.Utilities;
 
 public class DeleteItemServlet extends HttpServlet {
 	public DeleteItemServlet() {
@@ -31,38 +32,28 @@ public class DeleteItemServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
 
+	//Delete item
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int companyId = jwt.getCustomerId((String) request.getSession().getAttribute("token"));
-			if (companyId <= 0)
-				response.sendRedirect(request.getContextPath() + "/login");
+			int companyId = Utilities.CheckAuth(request, response);
 
 			int id = Integer.parseInt(request.getParameter("id"));
-			if (invoiceDAO.isItemAppliedToInvoice(id,companyId)) {
-				PrintWriter out = response.getWriter();
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Item applied to invoice cant be deleted.');");
-				out.println("location='items';");
-				out.println("</script>");
+			if (invoiceDAO.isItemAppliedToInvoice(id)) {
+				Utilities.ShowAlert("Item applied to invoice cant be deleted","items", response);
+
 			} 
 			else {
 				itemDAO.deleteItem(id, companyId);
+				Utilities.ShowAlert("Item deleted successfully","items", response);
 
-				PrintWriter out = response.getWriter();
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Item deleted Successfully');");
-				out.println("location='items';");
-				out.println("</script>");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Something went wrong');");
-			out.println("location='login.jsp';");
-			out.println("</script>");
+			Utilities.ShowAlert("Something went wrong","login.jsp", response);
+
 
 		}
 

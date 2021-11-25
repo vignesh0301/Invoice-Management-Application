@@ -1,17 +1,18 @@
 package com.invoice;
 
+//Bean class for invoice items
 public class InvoiceItems {
 
 
-	int id,invoiceNo,itemId; 
+	int id,invoiceId,itemId; 
 	double quantity,price;
 
 	public int getId() {
 		return id;
 	}
 
-	public int getInvoiceNo() {
-		return invoiceNo;
+	public int getInvoiceId() {
+		return invoiceId;
 	}
 
 	public int getItemId() {
@@ -26,8 +27,8 @@ public class InvoiceItems {
 		return price;
 	}
 
-	public InvoiceItems(int invoiceNo, int itemId, double quantity, double price) {
-		this.invoiceNo = invoiceNo;
+	public InvoiceItems(int invoiceId, int itemId, double quantity, double price) {
+		this.invoiceId = invoiceId;
 		this.itemId = itemId;
 		this.quantity = quantity;
 		this.price = price;

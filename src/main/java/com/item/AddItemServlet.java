@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.customer.Customer;
 import com.jwt.Jwt;
+import com.utilities.Utilities;
 
 public class AddItemServlet extends HttpServlet {
 
@@ -31,45 +32,33 @@ public class AddItemServlet extends HttpServlet {
 		}
 	}
 
+	//Add item
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int companyId = jwt.getCustomerId((String) request.getSession().getAttribute("token"));
-			if (companyId <= 0)
-				response.sendRedirect(request.getContextPath() + "/login");
+			int companyId = Utilities.CheckAuth(request, response);
 
 			String itemname = request.getParameter("itemname");
-			String type = request.getParameter("type");
+			int type =Integer.parseInt (request.getParameter("type"));
 			double CP = Double.parseDouble(request.getParameter("costprice"));
 			double SP = Double.parseDouble(request.getParameter("sellingprice"));
 			String description = request.getParameter("description");
 
 			if (itemDAO.isItemNameInUse(itemname, companyId)) {
-				PrintWriter out = response.getWriter();
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Itemname should be unique');");
-				out.println("location='additem.jsp';");
-				out.println("</script>");
+				Utilities.ShowAlert("Itemname in use","additem.jsp", response);
 			}
 
 			else {
 				Item item = new Item(itemname, type, CP, SP, description, companyId);
 				itemDAO.addItem(item);
 
-				PrintWriter out = response.getWriter();
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Item created Successfully');");
-				out.println("location='items';");
-				out.println("</script>");
+				Utilities.ShowAlert("Item created successfully","items", response);
+
 			}
 		} catch (Exception e) {
-
 			e.printStackTrace();
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Something went wrong');");
-			out.println("location='login.jsp';");
-			out.println("</script>");
+
+			Utilities.ShowAlert("Something went wrong","login.jsp", response);
 		}
 
 	}

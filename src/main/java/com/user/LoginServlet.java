@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jwt.Jwt;
+import com.utilities.Utilities;
 
 public class LoginServlet extends HttpServlet {
 
@@ -46,19 +47,13 @@ public class LoginServlet extends HttpServlet {
 				
 			} else {
 
-				PrintWriter out = response.getWriter();
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Invalid credentials');");
-				out.println("location='login.jsp';");
-				out.println("</script>");
+				Utilities.ShowAlert("Invalid credentials","login.jsp", response);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Something went wrong');");
-			out.println("location='login.jsp';");
-			out.println("</script>");
+			Utilities.ShowAlert("Something went wrong","login.jsp", response);
+
 		}
 	}
 

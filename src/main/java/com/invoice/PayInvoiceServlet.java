@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jwt.Jwt;
+import com.utilities.Utilities;
 
 public class PayInvoiceServlet extends HttpServlet {
 
@@ -33,33 +34,26 @@ public class PayInvoiceServlet extends HttpServlet {
         super();
     }
 
+    //Payment update
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			int companyId = jwt.getCustomerId((String) request.getSession().getAttribute("token")) ;
-			if(companyId <=0 ) response.sendRedirect(request.getContextPath()+"/login");
+			int companyId = Utilities.CheckAuth(request, response);
 			
 			int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
 			
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date paidDate1 = df.parse(request.getParameter("paidDate"));
-			java.sql.Date paidDate= new java.sql.Date(paidDate1.getTime()); 
+			java.sql.Date paidDate = Utilities.DateConverter(request.getParameter("paidDate"));
 			
 			invoiceDAO.pay(companyId,invoiceNo,paidDate); 
 			
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Payment made successfully');");
-			out.println("location='home'");
-			out.println("</script>");
+			Utilities.ShowAlert("Payment made successfully","home", response);
+
 			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Something went wrong');");
-			out.println("location='login.jsp';");
-			out.println("</script>");
+
+			Utilities.ShowAlert("Something went wrong","login.jsp", response);
+
 		}
 	}
 

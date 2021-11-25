@@ -17,12 +17,15 @@
 <header>
 		<ul>
 			<li><a class="active" href="<%=request.getContextPath()%>">Invoice App</a></li>
-			<li><a href="<%=request.getContextPath()%>/home">Home</a></li>
-			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/home">Invoices</a></li>
 			<li><a href="<%=request.getContextPath()%>/newinvoice">New Invoice</a></li>
+		    <li><a href="<%=request.getContextPath()%>/viewcustomer">View Customers</a></li>
+			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
+			<li><a href="<%=request.getContextPath()%>/items">Items</a></li>
 			<li><a href="<%=request.getContextPath()%>/additem.jsp">New Item</a></li>
-			<li><a class="logout"
-				href="<%=request.getContextPath()%>/logout">Logout</a></li>
+		    <li><a href="<%=request.getContextPath()%>/settings.jsp">Settings</a></li>
+			
+			<li><a class="logout" href="<%=request.getContextPath()%>/logout">Logout</a></li>
 		</ul>
 	</header>
 
@@ -35,21 +38,25 @@
         <thead>
           <tr class="my-head bg-primary text-light">
             <th style="text-align:center">Name</th>
-            <th style="text-align:center">Cost Price</th>
-            <th style="text-align:center">Selling Price</th>
+            <th style="text-align:center">Purchase Rate</th>
+            <th style="text-align:center">Rate</th>
             <th style="text-align:center">Type</th>
-            <th style="text-align:center">Delete</th>
+            <th style="text-align:center">Description</th>
+             <th style="text-align:center"></th>
+              <th style="text-align:center"></th>
           </tr>
         </thead>
         
        <c:forEach var="item" items="${items}">
        <tbody>
          <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="${item.name}" /></td>
-            <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="${item.costPrice}" /></td>
-            <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="${item.sellingPrice}" /></td>
-            <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="${item.type}" /></td>
-            <td style="text-align:center; align-items: center; vertical-align:middle;"><form action="deleteitem" method="post"><input type="hidden" name="id" value="${item.id}"><button type="submit"  class="btn btn-danger"  >Delete</button></form></td>
-           
+             <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="₹${item.costPrice}" /></td>
+            <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="₹${item.sellingPrice}" /></td>
+             <c:if test="${item.type==0}" var="res"><td style="text-align:center; align-items: center; vertical-align:middle;">Goods</td></c:if>
+             <c:if test="${item.type==1}" var="res"><td style="text-align:center; align-items: center; vertical-align:middle;">Service</td></c:if>
+            <td style="text-align:center; align-items: center; vertical-align:middle;"><c:out value="${item.description}" /></td>
+            <td style="text-align:center; align-items: center; vertical-align:middle;"><form action="deleteitem" method="post"><input type="hidden" name="id" value="${item.id}"><button type="submit"  class="btn btn-danger"  >Delete</button></form></td>           
+            <td style="text-align:center; align-items: center; vertical-align:middle;"><form action="edititem.jsp" method="post"><input type="hidden" name="itemId" value="${item.id}"><input type="hidden" name="name" value="${item.name}"><input type="hidden" name="description" value="${item.description}"><input type="hidden" name="cp" value="${item.costPrice}"><input type="hidden" name="sp" value="${item.sellingPrice}"><button type="submit"  class="btn btn-info"  >Edit</button></form></td>           
        </tbody>
         </c:forEach>
       </table>
