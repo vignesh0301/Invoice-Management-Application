@@ -76,7 +76,7 @@ public class NewInvoiceServlet extends HttpServlet {
 				invoiceitems.add(new InvoiceItems(itemId,quantity,price));
 			}
 			
-			invoiceDAO.CreateInvoice(new Invoice(customerId,date,dueDate,null,companyId,invoiceNo,discount,discountAmount,Amount,Amount-discountAmount));
+			invoiceDAO.CreateInvoice(new Invoice(customerId,date,dueDate,companyId,invoiceNo,discount,discountAmount,Amount,Amount-discountAmount));
 			invoiceDAO.insertInvoiceItems(invoiceitems,companyId,invoiceNo);
 			
 			Utilities.ShowAlert("Invoice has been created","home", response);

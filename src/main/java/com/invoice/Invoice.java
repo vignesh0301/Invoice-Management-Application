@@ -77,5 +77,18 @@ public class Invoice {
 		this.TotalAmount = totalAmount;
 	}
 	
+	public Invoice(int customerId, Date date, Date dueDate, int companyId, int invoiceNo,
+			double discount, double discountAmount, double amount, double totalAmount) {
+		this.customerId = customerId;
+		this.date = date;
+		this.dueDate = dueDate;
+		this.companyId = companyId;
+		this.invoiceNo = invoiceNo;
+		this.discount = discount;
+		this.discountAmount = discountAmount;
+		this.Amount = amount;
+		this.TotalAmount = totalAmount;
+	}
+	
 
 }

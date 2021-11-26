@@ -53,9 +53,11 @@
 				<label for="description">Description</label> <textarea  name="description" class="form-control"></textarea>
 			</div><br>
 
-
-			<button type="button" onclick="checkForm()" class="button">Add</button><br><br><br>
+			<button type="button" onclick="checkForm()" class="button">Add</button><br><br>
+			<h6 class="red">* Enter either cost price or selling price</h6>
+			<br><br>
 		</form>
+		
 	</div><br><br><br><br>
 </body>
 <script>

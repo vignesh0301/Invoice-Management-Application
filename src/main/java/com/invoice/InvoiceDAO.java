@@ -249,7 +249,7 @@ public class InvoiceDAO {
 	public void UpdateInvoice(Invoice invoice) throws ClassNotFoundException, SQLException {
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement ps = connection.prepareStatement(UPDATE_INVOICE)) {
-			System.out.println(invoice.getCompanyId()+" "+invoice.getInvoiceNo());
+			
 			int customerId = invoice.getCustomerId();
 			int companyId = invoice.getCompanyId();
 			Date date = invoice.getDate();

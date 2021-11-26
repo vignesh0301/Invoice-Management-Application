@@ -77,8 +77,8 @@ public class EditInvoiceServlet extends HttpServlet {
 			List<Item> itemlist = new ArrayList<>();
 			for (int i = 0; i < invoiceitems.size(); i++) {
 				String name = itemDAO.getItemNameById(invoiceitems.get(i).getItemId(), companyId);
-				double quantity = invoiceitems.get(i).getPrice();
-				double price = invoiceitems.get(i).getQuantity();
+				double quantity = invoiceitems.get(i).getQuantity();
+				double price = invoiceitems.get(i).getPrice();
 				itemlist.add(new Item(name, quantity, price));
 
 			}
