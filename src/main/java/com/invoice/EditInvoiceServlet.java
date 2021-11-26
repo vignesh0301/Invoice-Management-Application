@@ -121,6 +121,7 @@ public class EditInvoiceServlet extends HttpServlet {
 
 			List<InvoiceItems> invoiceitems = new ArrayList<>();
 
+			//There should be atleast one item
 			try {
 				String[] ids = request.getParameterValues("id");
 				for (String id : ids) {

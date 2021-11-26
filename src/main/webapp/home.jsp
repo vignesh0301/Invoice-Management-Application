@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.customer.CustomerDAO"%>
 <%@page import="java.util.List"%>
+<%@ include file="header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,20 +16,6 @@
 </head>
 
 <body>
-	<header>
-		<ul>
-			<li><a class="active" href="<%=request.getContextPath()%>">Invoice App</a></li>
-			<li><a href="<%=request.getContextPath()%>/home">Invoices</a></li>
-			<li><a href="<%=request.getContextPath()%>/newinvoice">New Invoice</a></li>
-		    <li><a href="<%=request.getContextPath()%>/viewcustomer">View Customers</a></li>
-			<li><a href="<%=request.getContextPath()%>/addcustomer.jsp">New Customer</a></li>
-			<li><a href="<%=request.getContextPath()%>/items">Items</a></li>
-			<li><a href="<%=request.getContextPath()%>/additem.jsp">New Item</a></li>
-			<li><a href="<%=request.getContextPath()%>/settings.jsp">Settings</a></li>
-			
-			<li><a class="logout" href="<%=request.getContextPath()%>/logout">Logout</a></li>
-		</ul>
-	</header>
 
 	<div class="container-fluid">
 		<h2 class="mt-4 pt-5" style="font-family: 'Patua One', cursive;">Invoices</h2>
