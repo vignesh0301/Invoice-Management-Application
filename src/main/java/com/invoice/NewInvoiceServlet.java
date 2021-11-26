@@ -66,14 +66,20 @@ public class NewInvoiceServlet extends HttpServlet {
 			
 			List<InvoiceItems> invoiceitems = new ArrayList<>(); 
 			
-			
-			String[] ids = request.getParameterValues("id");
-			for (String id : ids) {
-				String name = request.getParameter("itemname"+id);
-				int itemId = itemDAO.getIdByName(name,companyId);
-				double quantity = Double.parseDouble(request.getParameter("quantity"+id)); 
-				double price = Double.parseDouble(request.getParameter("price"+id));
-				invoiceitems.add(new InvoiceItems(itemId,quantity,price));
+			try {
+		         	String[] ids = request.getParameterValues("id");
+			        for (String id : ids) {
+			          	String name = request.getParameter("itemname"+id);
+			        	int itemId = itemDAO.getIdByName(name,companyId);
+			        	double quantity = Double.parseDouble(request.getParameter("quantity"+id)); 
+		        		double price = Double.parseDouble(request.getParameter("price"+id));
+		           		invoiceitems.add(new InvoiceItems(itemId,quantity,price));
+		        	}
+			} 
+			catch(Exception e) {
+				
+				Utilities.ShowAlert("Please add atleast one item","newinvoice", response);
+				return;
 			}
 			
 			invoiceDAO.CreateInvoice(new Invoice(customerId,date,dueDate,companyId,invoiceNo,discount,discountAmount,Amount,Amount-discountAmount));

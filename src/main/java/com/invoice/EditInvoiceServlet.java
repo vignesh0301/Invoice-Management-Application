@@ -41,7 +41,7 @@ public class EditInvoiceServlet extends HttpServlet {
 		}
 	}
 
-	//Getting invoice details
+	// Getting invoice details
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -101,7 +101,7 @@ public class EditInvoiceServlet extends HttpServlet {
 
 	}
 
-	//Editing invoice
+	// Editing invoice
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -111,29 +111,36 @@ public class EditInvoiceServlet extends HttpServlet {
 			java.sql.Date dueDate = Utilities.DateConverter(request.getParameter("dueDate"));
 
 			int customerId = Integer.parseInt(request.getParameter("customerId"));
-			int invoiceNo =Integer.parseInt(request.getParameter("invoiceNo"));
+			int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
 
 			double discount = Double.parseDouble(request.getParameter("discount"));
 
 			double Amount = Double.parseDouble(request.getParameter("amt"));
 
 			double discountAmount = (discount * Amount) / 100;
-			
-            List<InvoiceItems> invoiceitems = new ArrayList<>(); 
-			
-			
-			String[] ids = request.getParameterValues("id");
-			for (String id : ids) {
-				String name = request.getParameter("itemname"+id);
-				int itemId = itemDAO.getIdByName(name,companyId);
-				double quantity = Double.parseDouble(request.getParameter("quantity"+id)); 
-				double price = Double.parseDouble(request.getParameter("price"+id));
-				invoiceitems.add(new InvoiceItems(itemId,quantity,price));
+
+			List<InvoiceItems> invoiceitems = new ArrayList<>();
+
+			try {
+				String[] ids = request.getParameterValues("id");
+				for (String id : ids) {
+					String name = request.getParameter("itemname" + id);
+					int itemId = itemDAO.getIdByName(name, companyId);
+					double quantity = Double.parseDouble(request.getParameter("quantity" + id));
+					double price = Double.parseDouble(request.getParameter("price" + id));
+					invoiceitems.add(new InvoiceItems(itemId, quantity, price));
+				}
+			} 
+			catch (Exception e) {
+				
+				Utilities.ShowAlert("Please add atleast one item", "editinvoice?invoiceNo="+invoiceNo, response);
+				return;
 			}
-			invoiceDAO.UpdateInvoice(new Invoice(customerId,date,dueDate,null,companyId,invoiceNo,discount,discountAmount,Amount,Amount-discountAmount));
-			invoiceDAO.UpdateInvoiceItems(invoiceitems,companyId,invoiceNo);
-			Utilities.ShowAlert("Invoice has been updated","home", response);
-			
+			invoiceDAO.UpdateInvoice(new Invoice(customerId, date, dueDate, null, companyId, invoiceNo, discount,
+					discountAmount, Amount, Amount - discountAmount));
+			invoiceDAO.UpdateInvoiceItems(invoiceitems, companyId, invoiceNo);
+			Utilities.ShowAlert("Invoice has been updated", "home", response);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			Utilities.ShowAlert("Something went wrong", "login.jsp", response);

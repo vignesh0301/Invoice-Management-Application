@@ -211,8 +211,8 @@ function checkForm(){
 	else if(c==false){
 		alert("Make sure that Due Date is after the date of invoice");
 	}
-	else if(Invoice.getTotal()*((100-document.getElementById("discount").value)/100)<=0){
-		alert("Please make sure that total amount is greater than 0");
+	else if(Invoice.getTotal()*((100-document.getElementById("discount").value)/100)<0){
+		alert("Please make sure that total amount is greater than or equal to 0");
 	}
 	else{10.00
 		if(document.getElementById('discount').value==0) document.getElementById('discount').value=0;

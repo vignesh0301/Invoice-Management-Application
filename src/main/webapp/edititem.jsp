@@ -59,7 +59,9 @@
 			</div><br>
 			
 			<input type="hidden" name="itemId" value="<%=request.getParameter("itemId")%>">
-			<button type="button" onclick="checkForm()" class="button">Update</button><br><br><br>
+			<button type="button" onclick="checkForm()" class="button">Update</button><br><br>
+			<h6 class="red">* Enter either cost price or selling price</h6>
+			<br><br>
 		</form>
 	</div><br><br><br><br>
 </body>
