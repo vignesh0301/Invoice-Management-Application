@@ -11,6 +11,8 @@ public class LogoutServlet extends HttpServlet {
     public LogoutServlet() {
         super();
     }
+    
+    //Loggin out
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().setAttribute("token","");
 		response.sendRedirect(request.getContextPath()+"/login.jsp") ;

@@ -28,7 +28,10 @@
 	</header>
 	<div class="container mt-2">
 	<h5 class="text-warning">Warning: Deleting your account cannot be reversed</h5>
-	<form method="post" action="deleteuser"><button type="submit" class="btn btn-danger">Delete My Account</button></form>
+	<form method="post" action="deleteuser">
+	     <input type="password" name="password" class="form-control w-25" placeholder="Enter your password">
+	     <button type="submit" class="btn btn-danger">Delete My Account</button>
+	</form>
 	</div>
 </body>
 </html>

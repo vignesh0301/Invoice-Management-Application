@@ -57,6 +57,7 @@ public class Jwt {
 	    
 	}
 	
+	//Getting customer id
 	public int getCustomerId(String jwtToken) {
 		Claims claim = decodeToken(jwtToken);
 		if(claim.get("companyId")!=null) return (int) claim.get("companyId"); 

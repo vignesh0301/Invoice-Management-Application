@@ -22,6 +22,7 @@ public class UserDAO {
 	private static final String INSERT_USER = "INSERT INTO users  (username, email,company, password) VALUES  (?,?,?,?);";
 	
 	private static final String GET_USER_BY_USERNAME = "select * from users where username=?";
+	private static final String GET_USERNAME_BY_ID = "select username from users where id=?";
 	
 	private static final String DELETE_USER_BY_ID = "delete from users where id = ?;";
 	
@@ -96,12 +97,34 @@ public class UserDAO {
 		return -1;
 	}
 	
-	//Deleting an user
-	public void DeleteUser(int id) throws ClassNotFoundException, SQLException {
+	//Getting username by id
+	public String getUserName(int id) throws ClassNotFoundException, SQLException {
 		try (Connection connection = dbConnection.getConnection();
-				PreparedStatement statement = connection.prepareStatement(DELETE_USER_BY_ID);) {
+				PreparedStatement statement = connection.prepareStatement(GET_USERNAME_BY_ID);) {
 			statement.setInt(1,id);
-			statement.executeUpdate();
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				return rs.getString("username");
+			}
+		}
+
+		return "default";
+	}
+	
+	//Deleting an user
+	public boolean DeleteUser(int id,String password) throws ClassNotFoundException, SQLException {
+		String username = getUserName(id);
+		password = User.encrypt(password);
+		if(checkCredentials(username,password)) {
+     		try (Connection connection = dbConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(DELETE_USER_BY_ID);) {
+	     		statement.setInt(1,id);
+	    		statement.executeUpdate();
+	    		return true;
+	    	}
+		}
+		else {
+			return false;
 		}
 		
 	}

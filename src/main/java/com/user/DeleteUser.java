@@ -30,9 +30,16 @@ public class DeleteUser extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			int companyId = Utilities.CheckAuth(request, response);
-			userDAO.DeleteUser(companyId);
-			request.getSession().setAttribute("token", "");
-			Utilities.ShowAlert("Bye!!!", "login.jsp", response);
+			String password = request.getParameter("password");
+			
+			boolean flag = userDAO.DeleteUser(companyId,password);
+			if(flag) {
+		    	request.getSession().setAttribute("token", "");
+		    	Utilities.ShowAlert("Bye!!!", "login.jsp", response);
+			} 
+			else {
+				Utilities.ShowAlert("Wrong Password!!!", "settings.jsp",response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 

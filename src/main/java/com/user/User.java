@@ -39,7 +39,7 @@ public class User {
 		this.email = email;
 		this.company=company;
 	} 
-	public String encrypt(String password) {
+	public static String encrypt(String password) {
 		try   
         {  
             MessageDigest m = MessageDigest.getInstance("MD5");  
