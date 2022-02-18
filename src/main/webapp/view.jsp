@@ -50,8 +50,8 @@
     <div class="container mt-4">
        <c:if test="${paid==false}" var="res"><form id="pay" method="post" action="pay"><label class="mt-2" for="paidDate"><h5>Date of Payment</h5></label><input style="width:170px" id="paidDate" type="date" class="col-xs-2 mt-2 form-control" name="paidDate"><input type="hidden" name="invoiceNo" value="${invoiceNo }"><button type="button" onclick="makePay()" class="mt-4 btn btn-success">Make Payment</button></form></c:if>
        <c:if test="${paid==true }" var="res"><button class="btn btn-success">Paid at  &nbsp; <c:out value="${paidDate }"></c:out></button></c:if>
-       <div class=row"><form class="float-left" id="delete" method="post" action="deleteinvoice"><input type="hidden" name="invoiceNo" value="${invoiceNo }"><button type="submit" class="mt-4 btn btn-danger">Delete Invoice</button></form>
-        <form class=" ml-2 float-left" id="edit" method="get" action="editinvoice"><input type="hidden" name="invoiceNo" value="${invoiceNo }"><button type="submit" class="mt-4 mb-4 btn btn-info">Edit Invoice</button></form>
+      <c:if test="${paid==false}" var="res"> <div class=row"><form class="float-left" id="delete" method="post" action="deleteinvoice"><input type="hidden" name="invoiceNo" value="${invoiceNo }"><button type="submit" class="mt-4 btn btn-danger">Delete Invoice</button></form>
+        <form class=" ml-2 float-left" id="edit" method="get" action="editinvoice"><input type="hidden" name="invoiceNo" value="${invoiceNo }"><button type="submit" class="mt-4 mb-4 btn btn-info">Edit Invoice</button></form></c:if>
        </div>
     </div>
     

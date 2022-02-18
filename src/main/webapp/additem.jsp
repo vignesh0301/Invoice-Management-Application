@@ -29,11 +29,11 @@
 			</div><br>
 
 			<div>
-				<label for="costprice" class="red">CostPrice *</label> <input name="costprice" type="number" id="cp" class="form-control" pattern="^\d*(\.\d{0,2})?$">
+				<label for="costprice" class="red">CostPrice *</label> <input name="costprice" type="number" id="cp" class="form-control" min="0" pattern="^\d*(\.\d{0,2})?$">
 			</div><br>
 
 			<div>
-				<label for="sellingprice" class="red">Selling Price *</label> <input name="sellingprice" type="number" id="sp" class="form-control" pattern="^\d*(\.\d{0,2})?$">
+				<label for="sellingprice" class="red">Selling Price *</label> <input name="sellingprice" type="number" id="sp" min="0" class="form-control" pattern="^\d*(\.\d{0,2})?$">
 			</div><br>
 
 			<div>

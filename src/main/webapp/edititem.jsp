@@ -35,11 +35,11 @@
 			</div><br>
 
 			<div>
-				<label for="costprice" class="red">CostPrice *</label> <input name="costprice" type="number" id="cp" value="<%=request.getParameter("cp")%>" class="form-control" pattern="^\d*(\.\d{0,2})?$">
+				<label for="costprice" class="red">CostPrice *</label> <input name="costprice" type="number" id="cp" value="<%=request.getParameter("cp")%>" class="form-control" min="0" pattern="^\d*(\.\d{0,2})?$">
 			</div><br>
 
 			<div>
-				<label for="sellingprice" class="red">Selling Price *</label> <input name="sellingprice" type="number" id="sp" class="form-control" value="<%=request.getParameter("sp")%>" pattern="^\d*(\.\d{0,2})?$">
+				<label for="sellingprice" class="red">Selling Price *</label> <input name="sellingprice" type="number" id="sp" class="form-control" value="<%=request.getParameter("sp")%>" min="0" pattern="^\d*(\.\d{0,2})?$">
 			</div><br>
 
 			<div>

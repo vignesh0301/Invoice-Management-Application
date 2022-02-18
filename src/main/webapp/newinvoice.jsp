@@ -86,7 +86,7 @@
 			</c:forEach>
 		</select> <br> 
 		
-		<label for="price">Price</label> <input name="price" id="price" type="number" class="form-control w-25" ><br>
+		<label for="price">Price</label> <input name="price" id="price" type="number" min="0" class="form-control w-25" ><br>
 			 
 		 <label for="quantity">Quantity</label>	<input id="quantity" name="quantity" type="number" min="1" class="form-control w-25" value="1"><br>
 
